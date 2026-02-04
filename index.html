@@ -439,11 +439,6 @@
             font-weight: 700;
         }
 
-        .insights-section.wow-section {
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            background: linear-gradient(135deg, #faf5ff 0%, #f5f3ff 100%);
-        }
-
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -587,7 +582,7 @@
             color: #1f2937;
         }
 
-        /* Embudo de conversión */
+        /* Embudo de conversión - proporcional a los datos (100% → 80% → 40% → 5%) */
         .funnel-section {
             background: white;
             padding: 28px;
@@ -608,27 +603,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0;
+            gap: 4px;
+            max-width: 520px;
+            margin: 0 auto;
         }
 
         .funnel-stage {
             width: 100%;
-            max-width: 520px;
-            padding: 20px 28px;
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
             border: 2px solid #e5e7eb;
             border-radius: 12px;
-            margin-bottom: 8px;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
-        .funnel-stage:nth-child(1) { border-left: 6px solid #667eea; }
-        .funnel-stage:nth-child(2) { border-left: 6px solid #764ba2; max-width: 90%; }
-        .funnel-stage:nth-child(3) { border-left: 6px solid #8b5cf6; max-width: 65%; }
-        .funnel-stage:nth-child(4) { border-left: 6px solid #10b981; max-width: 35%; }
+        /* Proporciones según embudo: 1000 → 800 → 400 → 50 (100%, 80%, 40%, 5%) */
+        .funnel-stage:nth-child(1) { border-left: 6px solid #667eea; width: 100%; }
+        .funnel-stage:nth-child(2) { border-left: 6px solid #764ba2; width: 80%; }
+        .funnel-stage:nth-child(3) { border-left: 6px solid #8b5cf6; width: 40%; }
+        .funnel-stage:nth-child(4) { border-left: 6px solid #10b981; width: 5%; min-width: 180px; }
 
         .funnel-stage:hover {
             transform: translateX(4px);
@@ -781,8 +778,8 @@
         <h2 class="section-title">💰 KPIs de Negocio</h2>
         <div class="kpi-hero stats-bar">
             <div class="stat-item">
-                <div class="stat-number" data-kpi="sales">$15,400</div>
-                <div class="stat-label">Ventas generadas por el Bot (USD este mes)</div>
+                <div class="stat-number" data-kpi="sales">$15.400.000</div>
+                <div class="stat-label">Ventas generadas por el Bot (ARS este mes)</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" data-kpi="leads">342</div>
@@ -809,7 +806,7 @@
                 <div class="stat-label">Total interacciones</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" id="operSavings">$127K</div>
+                <div class="stat-number" id="operSavings">$127.000</div>
                 <div class="stat-label">Ahorro mensual</div>
             </div>
         </div>
@@ -1037,7 +1034,7 @@
                 <strong>Conversiones:</strong> El 18% de las consultas atendidas por el chatbot resultan en ventas confirmadas dentro de las 48 horas, superando el promedio de la industria (12%).
             </div>
             <div class="insight-item">
-                <strong>Ahorro operativo:</strong> El chatbot está atendiendo el equivalente a 2.5 empleados full-time, con disponibilidad 24/7 y un ahorro estimado de $127,000 mensuales en costos operativos.
+                <strong>Ahorro operativo:</strong> El chatbot está atendiendo el equivalente a 2.5 empleados full-time, con disponibilidad 24/7 y un ahorro estimado de $127.000 mensuales en costos operativos.
             </div>
         </div>
         <div class="insights-section">
@@ -1053,19 +1050,6 @@
             </div>
             <div class="insight-item">
                 <strong>Embudo y conversión:</strong> La mayor caída está entre "Leads capturados" y "Ventas cerradas". Mejorar seguimiento post-lead y ofertas concretas (presupuesto, cita) aumenta conversión.
-            </div>
-        </div>
-
-        <div class="insights-section wow-section">
-            <h3>🌟 Factor Wow – Diferenciales de la demo</h3>
-            <div class="insight-item">
-                <strong>Multimedia:</strong> El bot envía PDF (presupuesto), imagen (mapa de ubicación) y notas de voz pregrabadas para humanizar la marca.
-            </div>
-            <div class="insight-item">
-                <strong>Trigger por publicidad:</strong> Se simula que el chat inicia desde un clic en anuncio de Instagram ("Vi esto en Instagram y quiero info"), conectando Marketing con Ventas.
-            </div>
-            <div class="insight-item">
-                <strong>Análisis de sentimiento:</strong> El indicador de humor de usuarios (🟢 Positivo / 🟡 Neutro / 🔴 Enojado) permite priorizar atención y mejorar experiencia.
             </div>
         </div>
     </div>
@@ -1091,8 +1075,8 @@
         const DATA = {
             week: {
                 previous: {
-                    kpis: ['$3,850', '86', '30h'],
-                    operStats: ['97.2%', '1.6s', '892', '$34K'],
+                    kpis: ['$3.850.000', '86', '30h'],
+                    operStats: ['97.2%', '1.6s', '892', '$34.000'],
                     sentiment: [72, 20, 8],
                     funnel: ['250', '200', '98', '14'],
                     automation: [84, 16],
@@ -1114,8 +1098,8 @@
                     delayReasons: [4, 3, 2, 1, 1]
                 },
                 year: {
-                    kpis: ['$3,200', '72', '26h'],
-                    operStats: ['96.8%', '1.9s', '812', '$31K'],
+                    kpis: ['$3.200.000', '72', '26h'],
+                    operStats: ['96.8%', '1.9s', '812', '$31.000'],
                     sentiment: [68, 24, 8],
                     funnel: ['220', '175', '82', '11'],
                     automation: [82, 18],
@@ -1139,8 +1123,8 @@
             },
             month: {
                 previous: {
-                    kpis: ['$15,400', '342', '120h'],
-                    operStats: ['98.5%', '1.8s', '3,334', '$127K'],
+                    kpis: ['$15.400.000', '342', '120h'],
+                    operStats: ['98.5%', '1.8s', '3,334', '$127.000'],
                     sentiment: [70, 20, 10],
                     funnel: ['1,000', '800', '400', '50'],
                     automation: [85, 15],
@@ -1162,8 +1146,8 @@
                     delayReasons: [16, 11, 7, 5, 3]
                 },
                 year: {
-                    kpis: ['$12,100', '278', '98h'],
-                    operStats: ['97.9%', '2.1s', '2,890', '$98K'],
+                    kpis: ['$12.100.000', '278', '98h'],
+                    operStats: ['97.9%', '2.1s', '2,890', '$98.000'],
                     sentiment: [66, 24, 10],
                     funnel: ['820', '655', '328', '38'],
                     automation: [82, 18],
@@ -1187,8 +1171,8 @@
             },
             quarter: {
                 previous: {
-                    kpis: ['$46,200', '1,028', '360h'],
-                    operStats: ['98.8%', '1.7s', '9,892', '$382K'],
+                    kpis: ['$46.200.000', '1,028', '360h'],
+                    operStats: ['98.8%', '1.7s', '9,892', '$382.000'],
                     sentiment: [72, 19, 9],
                     funnel: ['3,000', '2,400', '1,180', '152'],
                     automation: [86, 14],
@@ -1210,8 +1194,8 @@
                     delayReasons: [48, 32, 22, 16, 10]
                 },
                 year: {
-                    kpis: ['$38,500', '856', '298h'],
-                    operStats: ['98.2%', '1.9s', '8,456', '$312K'],
+                    kpis: ['$38.500.000', '856', '298h'],
+                    operStats: ['98.2%', '1.9s', '8,456', '$312.000'],
                     sentiment: [69, 22, 9],
                     funnel: ['2,480', '1,980', '972', '118'],
                     automation: [84, 16],
