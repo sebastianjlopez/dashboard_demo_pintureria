@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Chatbot 24/7 - Pinturería | by Savante</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 28px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .savante-badge {
+            background: rgba(255,255,255,0.25);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .savante-badge::before {
+            content: "✨";
+            font-size: 16px;
+        }
+
+        .savante-badge a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .savante-badge a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 32px 40px;
+        }
+
+        .filters-section {
+            background: white;
+            padding: 24px 28px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filters-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            background: #f3f4f6;
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn:hover {
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .live-indicator {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 40px 0 24px 0;
+            padding-bottom: 16px;
+            border-bottom: 3px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 5px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .metric-card:nth-child(1) { animation-delay: 0.1s; }
+        .metric-card:nth-child(2) { animation-delay: 0.2s; }
+        .metric-card:nth-child(3) { animation-delay: 0.3s; }
+        .metric-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .metric-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 40px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .metric-change {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .metric-change.positive {
+            color: #10b981;
+        }
+
+        .metric-change.negative {
+            color: #ef4444;
+        }
+
+        .metric-change::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .metric-change.positive::before {
+            content: "📈";
+        }
+
+        .metric-change.negative::before {
+            content: "📉";
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .chart-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .chart-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.3px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 320px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .insights-section {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 32px;
+        }
+
+        .insights-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insight-item {
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border-left: 5px solid #667eea;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .insight-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left-color: #764ba2;
+        }
+
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-item strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .stat-item:hover .stat-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 6px;
+        }
+
+        .stat-item:hover .stat-number {
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px;
+            color: #6b7280;
+            font-size: 14px;
+            background: white;
+            border-radius: 16px;
+            margin-top: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer strong {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .footer a {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .metric-value {
+                font-size: 32px;
+            }
+        }
+
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation para las métricas */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo-icon">🎨</div>
+                <div>
+                    <h1>Dashboard Inteligente - Pinturería</h1>
+                    <div class="header-subtitle">Sistema de Análisis y Monitoreo 24/7</div>
+                </div>
+            </div>
+            <div class="savante-badge"><a href="https://www.savante.dev/" target="_blank" rel="noopener noreferrer">by Savante</a></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="filters-section">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label>📊 Período:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn" onclick="changeFilter('week', this)">Semana</button>
+                        <button class="filter-btn active" onclick="changeFilter('month', this)">Mes</button>
+                        <button class="filter-btn" onclick="changeFilter('quarter', this)">Trimestre</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>📈 Comparar con:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="changeCompare('previous', this)">Período anterior</button>
+                        <button class="filter-btn" onclick="changeCompare('year', this)">Año anterior</button>
+                    </div>
+                </div>
+                <div class="live-indicator">
+                    <div class="live-dot"></div>
+                    <span>Datos en vivo</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">98.5%</div>
+                <div class="stat-label">Disponibilidad</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1.8s</div>
+                <div class="stat-label">Respuesta promedio</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3,334</div>
+                <div class="stat-label">Total interacciones</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">$127K</div>
+                <div class="stat-label">Ahorro mensual</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">💬 Rendimiento del Chatbot</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon">💬</div>
+                <div class="metric-label">Total Consultas</div>
+                <div class="metric-value">2,847</div>
+                <div class="metric-change positive">
+                    +23% vs. mes anterior
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">✅</div>
+                <div class="metric-label">Tasa de Resolución</div>
+                <div class="metric-value">87%</div>
+                <div class="metric-change positive">
+                    +5% vs. mes anterior
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">⏱️</div>
+                <div class="metric-label">Tiempo Promedio</div>
+                <div class="metric-value">2.3min</div>
+                <div class="metric-change positive">
+                    -15% vs. mes anterior
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">⭐</div>
+                <div class="metric-label">Satisfacción</div>
+                <div class="metric-value">4.6/5</div>
+                <div class="metric-change positive">
+                    +8% vs. mes anterior
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card full-width">
+                <h3>📈 Conversaciones por Día</h3>
+                <div class="chart-container">
+                    <canvas id="conversationsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>🕐 Distribución por Hora del Día</h3>
+                <div class="chart-container">
+                    <canvas id="hourlyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>💬 Tipos de Consultas</h3>
+                <div class="chart-container">
+                    <canvas id="topicsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>📱 Canales de Comunicación</h3>
+                <div class="chart-container">
+                    <canvas id="channelsChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>⭐ Calificaciones del Servicio</h3>
+                <div class="chart-container">
+                    <canvas id="ratingsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">🚚 Logística y Gestión de Pedidos</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon">📦</div>
+                <div class="metric-label">Pedidos Gestionados</div>
+                <div class="metric-value">487</div>
+                <div class="metric-change positive">
+                    +18% vs. mes anterior
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">🚚</div>
+                <div class="metric-label">Tiempo Promedio Entrega</div>
+                <div class="metric-value">3.2d</div>
+                <div class="metric-change positive">
+                    -12% vs. mes anterior
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">⚠️</div>
+                <div class="metric-label">Pedidos Demorados</div>
+                <div class="metric-value">42</div>
+                <div class="metric-change negative">
+                    +5% vs. mes anterior
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">🎯</div>
+                <div class="metric-label">Tasa de Cumplimiento</div>
+                <div class="metric-value">91.4%</div>
+                <div class="metric-change positive">
+                    +2% vs. mes anterior
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>📦 Estado de Pedidos</h3>
+                <div class="chart-container">
+                    <canvas id="orderStatusChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>⏱️ Distribución de Tiempos de Entrega</h3>
+                <div class="chart-container">
+                    <canvas id="deliveryTimeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card full-width">
+                <h3>📊 Pedidos y Demoras por Semana</h3>
+                <div class="chart-container">
+                    <canvas id="weeklyOrdersChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>🏪 Pedidos por Zona</h3>
+                <div class="chart-container">
+                    <canvas id="zoneChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3>⚠️ Motivos de Demoras</h3>
+                <div class="chart-container">
+                    <canvas id="delayReasonsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="insights-section">
+            <h3>💡 Insights Clave - Chatbot</h3>
+            <div class="insight-item">
+                <strong>Horario pico:</strong> Las consultas se concentran entre las 18:00 y 22:00 hs (45% del tráfico total), cuando los clientes llegan a sus casas. Ideal para programar promociones y ofertas especiales.
+            </div>
+            <div class="insight-item">
+                <strong>Consulta más frecuente:</strong> "Colores y combinaciones" representa el 32% de las consultas, seguido por "Rendimiento y cantidades" con 24%. Considerar ampliar la base de conocimientos en estos temas.
+            </div>
+            <div class="insight-item">
+                <strong>Conversiones:</strong> El 18% de las consultas atendidas por el chatbot resultan en ventas confirmadas dentro de las 48 horas, superando el promedio de la industria (12%).
+            </div>
+            <div class="insight-item">
+                <strong>Ahorro operativo:</strong> El chatbot está atendiendo el equivalente a 2.5 empleados full-time, con disponibilidad 24/7 y un ahorro estimado de $127,000 mensuales en costos operativos.
+            </div>
+        </div>
+
+        <div class="insights-section">
+            <h3>🚚 Insights Clave - Logística</h3>
+            <div class="insight-item">
+                <strong>Principal motivo de demora:</strong> Stock insuficiente (38% de los casos), sugiriendo la necesidad de optimizar el inventario de productos populares mediante análisis predictivo.
+            </div>
+            <div class="insight-item">
+                <strong>Zona crítica:</strong> Zona Sur tiene el mayor tiempo de entrega (4.8 días promedio) debido a distancia y tráfico. Considerar un punto de distribución adicional o alianza con courier local.
+            </div>
+            <div class="insight-item">
+                <strong>Impacto del chatbot:</strong> Los pedidos iniciados vía chatbot tienen 23% menos demoras gracias a la verificación automática de stock en tiempo real y validación de direcciones.
+            </div>
+            <div class="insight-item">
+                <strong>Oportunidad de mejora:</strong> El 65% de los pedidos se entregan en 2-3 días. Implementar envío express (24-48hs) podría capturar el 28% de clientes que abandonan por urgencia temporal.
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="footer">
+            <div class="footer-content">
+                <span>🚀 Powered by <strong><a href="https://www.savante.dev/" target="_blank" rel="noopener noreferrer">Savante AI Solutions</a></strong></span>
+                <span>•</span>
+                <span>Dashboard actualizado en tiempo real</span>
+                <span>•</span>
+                <span>Última actualización: Hace 2 minutos</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funciones para filtros
+        let currentPeriod = 'month';
+        let currentCompare = 'previous';
+
+        function changeFilter(period, button) {
+            currentPeriod = period;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.parentElement === button.parentElement) {
+                    btn.classList.remove('active');
+                }
+            });
+            button.classList.add('active');
+            updateCharts();
+        }
+
+        function changeCompare(compare, button) {
+            currentCompare = compare;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.parentElement === button.parentElement) {
+                    btn.classList.remove('active');
+                }
+            });
+            button.classList.add('active');
+            updateCharts();
+        }
+
+        function updateCharts() {
+            console.log(`Período: ${currentPeriod}, Comparar: ${currentCompare}`);
+            // Aquí se actualizarían los datos según el filtro seleccionado
+        }
+
+        // Configuración de colores del gradiente
+        const gradientColors = {
+            primary: ['#667eea', '#764ba2'],
+            success: ['#10b981', '#059669'],
+            warning: ['#f59e0b', '#d97706'],
+            danger: ['#ef4444', '#dc2626'],
+            info: ['#3b82f6', '#2563eb']
+        };
+
+        // Función para crear gradiente
+        function createGradient(ctx, color1, color2) {
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            return gradient;
+        }
+
+        // Gráfico de estado de pedidos
+        const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+        const orderStatusData = {
+            labels: ['Entregados', 'En tránsito', 'Preparando', 'Demorados', 'Cancelados'],
+            datasets: [{
+                data: [398, 56, 31, 42, 7],
+                backgroundColor: [
+                    '#10b981',
+                    '#3b82f6',
+                    '#f59e0b',
+                    '#ef4444',
+                    '#6b7280'
+                ],
+                borderWidth: 0,
+                hoverOffset: 15
+            }]
+        };
+
+        new Chart(orderStatusCtx, {
+            type: 'doughnut',
+            data: orderStatusData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            },
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: {
+                            size: 14,
+                            family: 'Inter'
+                        },
+                        bodyFont: {
+                            size: 13,
+                            family: 'Inter'
+                        },
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // Gráfico de distribución de tiempos de entrega
+        const deliveryTimeCtx = document.getElementById('deliveryTimeChart').getContext('2d');
+        const deliveryTimeData = {
+            labels: ['1 día', '2 días', '3 días', '4 días', '5+ días'],
+            datasets: [{
+                label: 'Cantidad de pedidos',
+                data: [87, 156, 168, 54, 22],
+                backgroundColor: createGradient(deliveryTimeCtx, '#3b82f6', '#2563eb'),
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        };
+
+        new Chart(deliveryTimeCtx, {
+            type: 'bar',
+            data: deliveryTimeData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de pedidos y demoras por semana
+        const weeklyOrdersCtx = document.getElementById('weeklyOrdersChart').getContext('2d');
+        const weeklyOrdersData = {
+            labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+            datasets: [{
+                label: 'Pedidos totales',
+                data: [118, 134, 121, 114],
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                pointBackgroundColor: '#667eea',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }, {
+                label: 'Pedidos demorados',
+                data: [12, 8, 14, 8],
+                borderColor: '#ef4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                pointBackgroundColor: '#ef4444',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2
+            }]
+        };
+
+        new Chart(weeklyOrdersCtx, {
+            type: 'line',
+            data: weeklyOrdersData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            },
+                            usePointStyle: true
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de pedidos por zona
+        const zoneCtx = document.getElementById('zoneChart').getContext('2d');
+        const zoneData = {
+            labels: ['Centro', 'Zona Norte', 'Zona Sur', 'Zona Oeste', 'Zona Este'],
+            datasets: [{
+                label: 'Pedidos',
+                data: [145, 98, 87, 92, 65],
+                backgroundColor: [
+                    'rgba(102, 126, 234, 0.9)',
+                    'rgba(118, 75, 162, 0.9)',
+                    'rgba(240, 147, 251, 0.9)',
+                    'rgba(79, 172, 254, 0.9)',
+                    'rgba(67, 233, 123, 0.9)'
+                ],
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        };
+
+        new Chart(zoneCtx, {
+            type: 'bar',
+            data: zoneData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de motivos de demoras
+        const delayReasonsCtx = document.getElementById('delayReasonsChart').getContext('2d');
+        const delayReasonsData = {
+            labels: ['Stock insuficiente', 'Problemas de tráfico', 'Dirección incorrecta', 'Cliente ausente', 'Otros'],
+            datasets: [{
+                data: [16, 11, 7, 5, 3],
+                backgroundColor: [
+                    '#ef4444',
+                    '#f59e0b',
+                    '#f97316',
+                    '#fb923c',
+                    '#6b7280'
+                ],
+                borderWidth: 0,
+                hoverOffset: 10
+            }]
+        };
+
+        new Chart(delayReasonsCtx, {
+            type: 'pie',
+            data: delayReasonsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            },
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // Gráfico de conversaciones por día
+        const conversationsCtx = document.getElementById('conversationsChart').getContext('2d');
+        const conversationsData = {
+            labels: ['1 Feb', '3 Feb', '5 Feb', '7 Feb', '9 Feb', '11 Feb', '13 Feb', '15 Feb', '17 Feb', '19 Feb', '21 Feb', '23 Feb', '25 Feb', '27 Feb', '29 Feb'],
+            datasets: [{
+                label: 'Conversaciones',
+                data: [67, 89, 78, 95, 102, 88, 76, 94, 108, 97, 115, 103, 98, 112, 106],
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                tension: 0.4,
+                fill: true,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                pointBackgroundColor: '#667eea',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                borderWidth: 3
+            }]
+        };
+
+        new Chart(conversationsCtx, {
+            type: 'line',
+            data: conversationsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico por hora del día
+        const hourlyCtx = document.getElementById('hourlyChart').getContext('2d');
+        const hourlyData = {
+            labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
+            datasets: [{
+                label: 'Consultas',
+                data: [12, 8, 15, 45, 78, 92, 156, 142],
+                backgroundColor: createGradient(hourlyCtx, '#764ba2', '#667eea'),
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        };
+
+        new Chart(hourlyCtx, {
+            type: 'bar',
+            data: hourlyData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de tipos de consultas
+        const topicsCtx = document.getElementById('topicsChart').getContext('2d');
+        const topicsData = {
+            labels: ['Colores y combinaciones', 'Rendimiento y cantidad', 'Precios', 'Aplicación y técnicas', 'Productos específicos'],
+            datasets: [{
+                data: [912, 684, 456, 398, 397],
+                backgroundColor: [
+                    '#667eea',
+                    '#764ba2',
+                    '#f093fb',
+                    '#4facfe',
+                    '#43e97b'
+                ],
+                borderWidth: 0,
+                hoverOffset: 15
+            }]
+        };
+
+        new Chart(topicsCtx, {
+            type: 'doughnut',
+            data: topicsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            },
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // Gráfico de canales
+        const channelsCtx = document.getElementById('channelsChart').getContext('2d');
+        const channelsData = {
+            labels: ['WhatsApp', 'Web Chat', 'Facebook', 'Instagram'],
+            datasets: [{
+                data: [1425, 854, 398, 170],
+                backgroundColor: [
+                    '#25D366',
+                    '#667eea',
+                    '#1877f2',
+                    '#E4405F'
+                ],
+                borderWidth: 0,
+                hoverOffset: 10
+            }]
+        };
+
+        new Chart(channelsCtx, {
+            type: 'pie',
+            data: channelsData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            },
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                }
+            }
+        });
+
+        // Gráfico de calificaciones
+        const ratingsCtx = document.getElementById('ratingsChart').getContext('2d');
+        const ratingsData = {
+            labels: ['⭐⭐⭐⭐⭐', '⭐⭐⭐⭐', '⭐⭐⭐', '⭐⭐', '⭐'],
+            datasets: [{
+                label: 'Calificaciones',
+                data: [1598, 856, 284, 89, 20],
+                backgroundColor: createGradient(ratingsCtx, '#10b981', '#059669'),
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        };
+
+        new Chart(ratingsCtx, {
+            type: 'bar',
+            data: ratingsData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter'
+                            }
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Inter',
+                                size: 13
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
