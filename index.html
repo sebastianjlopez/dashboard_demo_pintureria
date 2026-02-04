@@ -794,6 +794,26 @@
             </div>
         </div>
 
+        <!-- Resumen operativo -->
+        <div class="stats-bar" id="operStatsBar">
+            <div class="stat-item">
+                <div class="stat-number" id="operAvailability">98.5%</div>
+                <div class="stat-label">Disponibilidad</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="operResponse">1.8s</div>
+                <div class="stat-label">Respuesta promedio</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="operInteractions">3,334</div>
+                <div class="stat-label">Total interacciones</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="operSavings">$127K</div>
+                <div class="stat-label">Ahorro mensual</div>
+            </div>
+        </div>
+
         <!-- Factor Wow: Análisis de Sentimiento -->
         <div class="sentiment-widget">
             <h3>😊 Humor de los usuarios (Análisis de sentimiento)</h3>
@@ -883,16 +903,156 @@
             </div>
         </div>
 
+        <!-- Rendimiento del Chatbot -->
+        <h2 class="section-title">💬 Rendimiento del Chatbot</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon">💬</div>
+                <div class="metric-label">Total Consultas</div>
+                <div class="metric-value" id="m1Total">2,847</div>
+                <div class="metric-change positive" id="m1Change">+23% vs. mes anterior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">✅</div>
+                <div class="metric-label">Tasa de Resolución</div>
+                <div class="metric-value" id="m1Resol">87%</div>
+                <div class="metric-change positive" id="m1ResolCh">+5% vs. mes anterior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">⏱️</div>
+                <div class="metric-label">Tiempo Promedio</div>
+                <div class="metric-value" id="m1Time">2.3min</div>
+                <div class="metric-change positive" id="m1TimeCh">-15% vs. mes anterior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">⭐</div>
+                <div class="metric-label">Satisfacción</div>
+                <div class="metric-value" id="m1Sat">4.6/5</div>
+                <div class="metric-change positive" id="m1SatCh">+8% vs. mes anterior</div>
+            </div>
+        </div>
+        <div class="charts-grid">
+            <div class="chart-card full-width">
+                <h3>📈 Conversaciones por Día</h3>
+                <div class="chart-container">
+                    <canvas id="conversationsChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>🕐 Distribución por Hora del Día</h3>
+                <div class="chart-container">
+                    <canvas id="hourlyChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>💬 Tipos de Consultas</h3>
+                <div class="chart-container">
+                    <canvas id="topicsChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>📱 Canales de Comunicación</h3>
+                <div class="chart-container">
+                    <canvas id="channelsChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>⭐ Calificaciones del Servicio</h3>
+                <div class="chart-container">
+                    <canvas id="ratingsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logística y Gestión de Pedidos -->
+        <h2 class="section-title">🚚 Logística y Gestión de Pedidos</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon">📦</div>
+                <div class="metric-label">Pedidos Gestionados</div>
+                <div class="metric-value" id="m2Orders">487</div>
+                <div class="metric-change positive" id="m2OrdersCh">+18% vs. mes anterior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">🚚</div>
+                <div class="metric-label">Tiempo Promedio Entrega</div>
+                <div class="metric-value" id="m2Delivery">3.2d</div>
+                <div class="metric-change positive" id="m2DeliveryCh">-12% vs. mes anterior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">⚠️</div>
+                <div class="metric-label">Pedidos Demorados</div>
+                <div class="metric-value" id="m2Delayed">42</div>
+                <div class="metric-change negative" id="m2DelayedCh">+5% vs. mes anterior</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">🎯</div>
+                <div class="metric-label">Tasa de Cumplimiento</div>
+                <div class="metric-value" id="m2Rate">91.4%</div>
+                <div class="metric-change positive" id="m2RateCh">+2% vs. mes anterior</div>
+            </div>
+        </div>
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>📦 Estado de Pedidos</h3>
+                <div class="chart-container">
+                    <canvas id="orderStatusChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>⏱️ Distribución de Tiempos de Entrega</h3>
+                <div class="chart-container">
+                    <canvas id="deliveryTimeChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card full-width">
+                <h3>📊 Pedidos y Demoras por Semana</h3>
+                <div class="chart-container">
+                    <canvas id="weeklyOrdersChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>🏪 Pedidos por Zona</h3>
+                <div class="chart-container">
+                    <canvas id="zoneChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>⚠️ Motivos de Demoras</h3>
+                <div class="chart-container">
+                    <canvas id="delayReasonsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
         <div class="insights-section">
-            <h3>💡 Insights clave</h3>
+            <h3>💡 Insights clave – Chatbot</h3>
             <div class="insight-item">
-                <strong>Horario pico:</strong> Las consultas se concentran entre las 18:00 y 22:00 hs. Ideal tener personal humano de guardia en esa franja para escalar a ventas complejas.
+                <strong>Horario pico:</strong> Las consultas se concentran entre las 18:00 y 22:00 hs (45% del tráfico total). Ideal tener personal humano de guardia en esa franja para escalar a ventas complejas.
             </div>
             <div class="insight-item">
-                <strong>Motivos de contacto:</strong> Precios (40%) y Soporte técnico (30%) lideran. Invertir en contenido y respuestas automáticas en esos temas reduce carga operativa.
+                <strong>Consulta más frecuente:</strong> "Colores y combinaciones" representa el 32% de las consultas, seguido por "Rendimiento y cantidades" con 24%. Considerar ampliar la base de conocimientos en estos temas.
             </div>
             <div class="insight-item">
-                <strong>Embudo:</strong> La mayor caída está entre "Leads capturados" y "Ventas cerradas". Mejorar seguimiento post-lead y ofertas concretas (presupuesto, cita) aumenta conversión.
+                <strong>Conversiones:</strong> El 18% de las consultas atendidas por el chatbot resultan en ventas confirmadas dentro de las 48 horas, superando el promedio de la industria (12%).
+            </div>
+            <div class="insight-item">
+                <strong>Ahorro operativo:</strong> El chatbot está atendiendo el equivalente a 2.5 empleados full-time, con disponibilidad 24/7 y un ahorro estimado de $127,000 mensuales en costos operativos.
+            </div>
+        </div>
+        <div class="insights-section">
+            <h3>🚚 Insights clave – Logística</h3>
+            <div class="insight-item">
+                <strong>Principal motivo de demora:</strong> Stock insuficiente (38% de los casos). Optimizar inventario de productos populares mediante análisis predictivo reduce demoras.
+            </div>
+            <div class="insight-item">
+                <strong>Zona crítica:</strong> Zona Sur tiene el mayor tiempo de entrega (4.8 días promedio). Considerar un punto de distribución adicional o alianza con courier local.
+            </div>
+            <div class="insight-item">
+                <strong>Impacto del chatbot:</strong> Los pedidos iniciados vía chatbot tienen 23% menos demoras gracias a la verificación automática de stock en tiempo real y validación de direcciones.
+            </div>
+            <div class="insight-item">
+                <strong>Embudo y conversión:</strong> La mayor caída está entre "Leads capturados" y "Ventas cerradas". Mejorar seguimiento post-lead y ofertas concretas (presupuesto, cita) aumenta conversión.
             </div>
         </div>
 
@@ -932,67 +1092,145 @@
             week: {
                 previous: {
                     kpis: ['$3,850', '86', '30h'],
+                    operStats: ['97.2%', '1.6s', '892', '$34K'],
                     sentiment: [72, 20, 8],
                     funnel: ['250', '200', '98', '14'],
                     automation: [84, 16],
                     responseBefore: 25,
                     responseNow: 0.1,
                     reasons: [40, 30, 20, 10],
-                    peakHours: [5, 3, 8, 18, 42, 68, 95, 88, 62, 45, 38, 52, 58, 72, 98, 112, 125, 118, 95, 72, 48, 28]
+                    peakHours: [5, 3, 8, 18, 42, 68, 95, 88, 62, 45, 38, 52, 58, 72, 98, 112, 125, 118, 95, 72, 48, 28],
+                    metrics1: [{ v: '756', ch: '+18% vs. semana anterior', pos: true }, { v: '84%', ch: '+3%', pos: true }, { v: '2.1min', ch: '-12%', pos: true }, { v: '4.5/5', ch: '+5%', pos: true }],
+                    metrics2: [{ v: '128', ch: '+22%', pos: true }, { v: '2.9d', ch: '-8%', pos: true }, { v: '11', ch: '+8%', pos: false }, { v: '91.4%', ch: '+1%', pos: true }],
+                    conversations: [22, 28, 26, 30, 32, 28, 26, 30, 34, 32, 36, 32, 30, 34, 38],
+                    hourly: [4, 2, 5, 14, 26, 30, 52, 48],
+                    topics: [245, 182, 120, 108, 101],
+                    channels: [380, 218, 108, 50],
+                    ratings: [428, 228, 76, 24, 6],
+                    orderStatus: [105, 14, 8, 11, 2],
+                    deliveryTime: [22, 42, 44, 14, 6],
+                    weeklyOrders: { total: [32, 38, 35, 33], delayed: [3, 2, 4, 2] },
+                    zone: [38, 26, 22, 24, 18],
+                    delayReasons: [4, 3, 2, 1, 1]
                 },
                 year: {
                     kpis: ['$3,200', '72', '26h'],
+                    operStats: ['96.8%', '1.9s', '812', '$31K'],
                     sentiment: [68, 24, 8],
                     funnel: ['220', '175', '82', '11'],
                     automation: [82, 18],
                     responseBefore: 28,
                     responseNow: 0.2,
                     reasons: [38, 32, 22, 8],
-                    peakHours: [4, 2, 6, 14, 38, 62, 88, 82, 58, 42, 35, 48, 52, 65, 88, 102, 115, 108, 88, 65, 42, 24]
+                    peakHours: [4, 2, 6, 14, 38, 62, 88, 82, 58, 42, 35, 48, 52, 65, 88, 102, 115, 108, 88, 65, 42, 24],
+                    metrics1: [{ v: '698', ch: '+24% vs. año anterior', pos: true }, { v: '82%', ch: '+6%', pos: true }, { v: '2.4min', ch: '-8%', pos: true }, { v: '4.4/5', ch: '+9%', pos: true }],
+                    metrics2: [{ v: '118', ch: '+28%', pos: true }, { v: '3.1d', ch: '-5%', pos: true }, { v: '12', ch: '+5%', pos: false }, { v: '89.8%', ch: '+4%', pos: true }],
+                    conversations: [20, 24, 22, 26, 28, 24, 22, 26, 30, 28, 32, 28, 26, 30, 34],
+                    hourly: [3, 2, 4, 12, 22, 26, 44, 40],
+                    topics: [218, 165, 108, 98, 92],
+                    channels: [342, 198, 98, 44],
+                    ratings: [385, 208, 68, 22, 5],
+                    orderStatus: [98, 16, 10, 13, 3],
+                    deliveryTime: [20, 38, 48, 16, 8],
+                    weeklyOrders: { total: [28, 34, 32, 30], delayed: [4, 3, 5, 3] },
+                    zone: [35, 24, 20, 22, 17],
+                    delayReasons: [5, 3, 2, 2, 1]
                 }
             },
             month: {
                 previous: {
                     kpis: ['$15,400', '342', '120h'],
+                    operStats: ['98.5%', '1.8s', '3,334', '$127K'],
                     sentiment: [70, 20, 10],
                     funnel: ['1,000', '800', '400', '50'],
                     automation: [85, 15],
                     responseBefore: 25,
                     responseNow: 0.1,
                     reasons: [40, 30, 20, 10],
-                    peakHours: [12, 8, 15, 45, 78, 92, 156, 142, 118, 95, 88, 102, 115, 128, 165, 178, 168, 145, 112, 88, 62, 35]
+                    peakHours: [12, 8, 15, 45, 78, 92, 156, 142, 118, 95, 88, 102, 115, 128, 165, 178, 168, 145, 112, 88, 62, 35],
+                    metrics1: [{ v: '2,847', ch: '+23% vs. mes anterior', pos: true }, { v: '87%', ch: '+5%', pos: true }, { v: '2.3min', ch: '-15%', pos: true }, { v: '4.6/5', ch: '+8%', pos: true }],
+                    metrics2: [{ v: '487', ch: '+18%', pos: true }, { v: '3.2d', ch: '-12%', pos: true }, { v: '42', ch: '+5%', pos: false }, { v: '91.4%', ch: '+2%', pos: true }],
+                    conversations: [67, 89, 78, 95, 102, 88, 76, 94, 108, 97, 115, 103, 98, 112, 106],
+                    hourly: [12, 8, 15, 45, 78, 92, 156, 142],
+                    topics: [912, 684, 456, 398, 397],
+                    channels: [1425, 854, 398, 170],
+                    ratings: [1598, 856, 284, 89, 20],
+                    orderStatus: [398, 56, 31, 42, 7],
+                    deliveryTime: [87, 156, 168, 54, 22],
+                    weeklyOrders: { total: [118, 134, 121, 114], delayed: [12, 8, 14, 8] },
+                    zone: [145, 98, 87, 92, 65],
+                    delayReasons: [16, 11, 7, 5, 3]
                 },
                 year: {
                     kpis: ['$12,100', '278', '98h'],
+                    operStats: ['97.9%', '2.1s', '2,890', '$98K'],
                     sentiment: [66, 24, 10],
                     funnel: ['820', '655', '328', '38'],
                     automation: [82, 18],
                     responseBefore: 28,
                     responseNow: 0.15,
                     reasons: [38, 32, 22, 8],
-                    peakHours: [10, 6, 12, 38, 68, 82, 138, 124, 102, 82, 75, 88, 98, 112, 142, 155, 145, 122, 95, 72, 52, 28]
+                    peakHours: [10, 6, 12, 38, 68, 82, 138, 124, 102, 82, 75, 88, 98, 112, 142, 155, 145, 122, 95, 72, 52, 28],
+                    metrics1: [{ v: '2,412', ch: '+31% vs. año anterior', pos: true }, { v: '84%', ch: '+8%', pos: true }, { v: '2.6min', ch: '-11%', pos: true }, { v: '4.4/5', ch: '+12%', pos: true }],
+                    metrics2: [{ v: '412', ch: '+24%', pos: true }, { v: '3.5d', ch: '-8%', pos: true }, { v: '48', ch: '+2%', pos: false }, { v: '89.2%', ch: '+5%', pos: true }],
+                    conversations: [58, 76, 68, 82, 88, 74, 66, 82, 94, 84, 98, 88, 84, 96, 102],
+                    hourly: [10, 6, 12, 38, 68, 82, 138, 124],
+                    topics: [798, 598, 398, 348, 342],
+                    channels: [1198, 724, 348, 148],
+                    ratings: [1356, 728, 242, 78, 18],
+                    orderStatus: [352, 62, 38, 48, 10],
+                    deliveryTime: [78, 142, 178, 58, 28],
+                    weeklyOrders: { total: [98, 112, 108, 102], delayed: [14, 10, 16, 12] },
+                    zone: [128, 88, 78, 82, 58],
+                    delayReasons: [18, 12, 8, 6, 4]
                 }
             },
             quarter: {
                 previous: {
                     kpis: ['$46,200', '1,028', '360h'],
+                    operStats: ['98.8%', '1.7s', '9,892', '$382K'],
                     sentiment: [72, 19, 9],
                     funnel: ['3,000', '2,400', '1,180', '152'],
                     automation: [86, 14],
                     responseBefore: 24,
                     responseNow: 0.08,
                     reasons: [41, 29, 21, 9],
-                    peakHours: [38, 24, 44, 132, 232, 274, 468, 424, 352, 282, 262, 304, 342, 382, 492, 532, 502, 432, 334, 262, 184, 102]
+                    peakHours: [38, 24, 44, 132, 232, 274, 468, 424, 352, 282, 262, 304, 342, 382, 492, 532, 502, 432, 334, 262, 184, 102],
+                    metrics1: [{ v: '8,542', ch: '+19% vs. trim. anterior', pos: true }, { v: '88%', ch: '+4%', pos: true }, { v: '2.2min', ch: '-18%', pos: true }, { v: '4.7/5', ch: '+6%', pos: true }],
+                    metrics2: [{ v: '1,456', ch: '+15%', pos: true }, { v: '3.0d', ch: '-14%', pos: true }, { v: '118', ch: '+4%', pos: false }, { v: '91.9%', ch: '+1%', pos: true }],
+                    conversations: [198, 268, 234, 288, 302, 268, 234, 288, 318, 292, 342, 308, 292, 332, 356],
+                    hourly: [36, 24, 44, 132, 232, 274, 468, 424],
+                    topics: [2736, 2052, 1368, 1194, 1192],
+                    channels: [4275, 2562, 1194, 510],
+                    ratings: [4794, 2568, 852, 268, 60],
+                    orderStatus: [1185, 168, 92, 128, 22],
+                    deliveryTime: [262, 468, 502, 162, 68],
+                    weeklyOrders: { total: [352, 398, 368, 342], delayed: [36, 28, 42, 28] },
+                    zone: [432, 292, 258, 278, 192],
+                    delayReasons: [48, 32, 22, 16, 10]
                 },
                 year: {
                     kpis: ['$38,500', '856', '298h'],
+                    operStats: ['98.2%', '1.9s', '8,456', '$312K'],
                     sentiment: [69, 22, 9],
                     funnel: ['2,480', '1,980', '972', '118'],
                     automation: [84, 16],
                     responseBefore: 26,
                     responseNow: 0.12,
                     reasons: [39, 31, 21, 9],
-                    peakHours: [32, 20, 38, 115, 202, 238, 408, 368, 305, 245, 228, 264, 298, 332, 428, 462, 438, 376, 292, 228, 162, 88]
+                    peakHours: [32, 20, 38, 115, 202, 238, 408, 368, 305, 245, 228, 264, 298, 332, 428, 462, 438, 376, 292, 228, 162, 88],
+                    metrics1: [{ v: '7,236', ch: '+28% vs. año anterior', pos: true }, { v: '85%', ch: '+7%', pos: true }, { v: '2.5min', ch: '-12%', pos: true }, { v: '4.5/5', ch: '+10%', pos: true }],
+                    metrics2: [{ v: '1,238', ch: '+22%', pos: true }, { v: '3.3d', ch: '-9%', pos: true }, { v: '142', ch: '+3%', pos: false }, { v: '90.2%', ch: '+4%', pos: true }],
+                    conversations: [174, 228, 204, 246, 264, 228, 198, 246, 282, 252, 306, 264, 252, 288, 318],
+                    hourly: [30, 18, 36, 114, 204, 246, 414, 372],
+                    topics: [2394, 1794, 1194, 1044, 1026],
+                    channels: [3588, 2172, 1044, 444],
+                    ratings: [4068, 2184, 726, 234, 54],
+                    orderStatus: [1052, 186, 114, 142, 32],
+                    deliveryTime: [234, 426, 534, 174, 84],
+                    weeklyOrders: { total: [294, 336, 324, 306], delayed: [42, 30, 48, 36] },
+                    zone: [384, 264, 234, 248, 174],
+                    delayReasons: [54, 36, 24, 18, 12]
                 }
             }
         };
@@ -1022,10 +1260,18 @@
         function updateCharts() {
             const d = DATA[currentPeriod][currentCompare];
 
-            // A. KPIs de Negocio (3 números grandes)
+            // A. KPIs de Negocio
             document.querySelectorAll('.kpi-hero .stat-number').forEach((el, i) => { el.textContent = d.kpis[i]; });
 
-            // Factor Wow: Sentimiento (semáforo)
+            // Resumen operativo
+            if (d.operStats) {
+                document.getElementById('operAvailability').textContent = d.operStats[0];
+                document.getElementById('operResponse').textContent = d.operStats[1];
+                document.getElementById('operInteractions').textContent = d.operStats[2];
+                document.getElementById('operSavings').textContent = d.operStats[3];
+            }
+
+            // Factor Wow: Sentimiento
             const posPct = d.sentiment[0], neuPct = d.sentiment[1], negPct = d.sentiment[2];
             document.getElementById('sentimentPos').style.height = posPct + '%';
             document.getElementById('sentimentNeu').style.height = neuPct + '%';
@@ -1034,30 +1280,76 @@
             document.getElementById('sentimentNeuPct').textContent = neuPct + '%';
             document.getElementById('sentimentNegPct').textContent = negPct + '%';
 
-            // D. Embudo de conversión
+            // Embudo de conversión
             document.getElementById('funnelSessions').textContent = d.funnel[0];
             document.getElementById('funnelMenu').textContent = d.funnel[1];
             document.getElementById('funnelLeads').textContent = d.funnel[2];
             document.getElementById('funnelSales').textContent = d.funnel[3];
 
-            // Gráficos
-            if (window.automationChart) {
-                window.automationChart.data.datasets[0].data = d.automation;
-                window.automationChart.update('active');
+            // Métricas Chatbot (4 cards)
+            if (d.metrics1) {
+                document.getElementById('m1Total').textContent = d.metrics1[0].v;
+                document.getElementById('m1Resol').textContent = d.metrics1[1].v;
+                document.getElementById('m1Time').textContent = d.metrics1[2].v;
+                document.getElementById('m1Sat').textContent = d.metrics1[3].v;
+                document.getElementById('m1Change').textContent = d.metrics1[0].ch;
+                document.getElementById('m1ResolCh').textContent = d.metrics1[1].ch;
+                document.getElementById('m1TimeCh').textContent = d.metrics1[2].ch;
+                document.getElementById('m1SatCh').textContent = d.metrics1[3].ch;
+                document.getElementById('m1Change').className = 'metric-change ' + (d.metrics1[0].pos ? 'positive' : 'negative');
+                document.getElementById('m1ResolCh').className = 'metric-change ' + (d.metrics1[1].pos ? 'positive' : 'negative');
+                document.getElementById('m1TimeCh').className = 'metric-change ' + (d.metrics1[2].pos ? 'positive' : 'negative');
+                document.getElementById('m1SatCh').className = 'metric-change ' + (d.metrics1[3].pos ? 'positive' : 'negative');
             }
+
+            // Métricas Logística (4 cards)
+            if (d.metrics2) {
+                document.getElementById('m2Orders').textContent = d.metrics2[0].v;
+                document.getElementById('m2Delivery').textContent = d.metrics2[1].v;
+                document.getElementById('m2Delayed').textContent = d.metrics2[2].v;
+                document.getElementById('m2Rate').textContent = d.metrics2[3].v;
+                document.getElementById('m2OrdersCh').textContent = d.metrics2[0].ch;
+                document.getElementById('m2DeliveryCh').textContent = d.metrics2[1].ch;
+                document.getElementById('m2DelayedCh').textContent = d.metrics2[2].ch;
+                document.getElementById('m2RateCh').textContent = d.metrics2[3].ch;
+                ['m2OrdersCh','m2DeliveryCh','m2DelayedCh','m2RateCh'].forEach((id, i) => {
+                    document.getElementById(id).className = 'metric-change ' + (d.metrics2[i].pos ? 'positive' : 'negative');
+                });
+            }
+
+            // Gráficos (negocio + eficiencia + mercado)
+            if (window.automationChart) { window.automationChart.data.datasets[0].data = d.automation; window.automationChart.update('active'); }
             if (window.responseTimeChart) {
-                // Mostrar Antes (min) vs Ahora (seg): segunda barra con valor relativo para que se vea
                 window.responseTimeChart.data.datasets[0].data = [d.responseBefore, Math.min(d.responseBefore * 0.08, 2)];
                 window.responseTimeChart.update('active');
             }
-            if (window.reasonsChart) {
-                window.reasonsChart.data.datasets[0].data = d.reasons;
-                window.reasonsChart.update('active');
+            if (window.reasonsChart) { window.reasonsChart.data.datasets[0].data = d.reasons; window.reasonsChart.update('active'); }
+            if (window.peakHoursChart) { window.peakHoursChart.data.datasets[0].data = d.peakHours; window.peakHoursChart.update('active'); }
+
+            // Gráficos Chatbot
+            if (window.conversationsChart && d.conversations) { window.conversationsChart.data.datasets[0].data = d.conversations; window.conversationsChart.update('active'); }
+            if (window.hourlyChart && d.hourly) { window.hourlyChart.data.datasets[0].data = d.hourly; window.hourlyChart.update('active'); }
+            if (window.topicsChart && d.topics) { window.topicsChart.data.datasets[0].data = d.topics; window.topicsChart.update('active'); }
+            if (window.channelsChart && d.channels) { window.channelsChart.data.datasets[0].data = d.channels; window.channelsChart.update('active'); }
+            if (window.ratingsChart && d.ratings) { window.ratingsChart.data.datasets[0].data = d.ratings; window.ratingsChart.update('active'); }
+
+            // Gráficos Logística
+            if (window.orderStatusChart && d.orderStatus) { window.orderStatusChart.data.datasets[0].data = d.orderStatus; window.orderStatusChart.update('active'); }
+            if (window.deliveryTimeChart && d.deliveryTime) { window.deliveryTimeChart.data.datasets[0].data = d.deliveryTime; window.deliveryTimeChart.update('active'); }
+            if (window.weeklyOrdersChart && d.weeklyOrders) {
+                window.weeklyOrdersChart.data.datasets[0].data = d.weeklyOrders.total;
+                window.weeklyOrdersChart.data.datasets[1].data = d.weeklyOrders.delayed;
+                window.weeklyOrdersChart.update('active');
             }
-            if (window.peakHoursChart) {
-                window.peakHoursChart.data.datasets[0].data = d.peakHours;
-                window.peakHoursChart.update('active');
-            }
+            if (window.zoneChart && d.zone) { window.zoneChart.data.datasets[0].data = d.zone; window.zoneChart.update('active'); }
+            if (window.delayReasonsChart && d.delayReasons) { window.delayReasonsChart.data.datasets[0].data = d.delayReasons; window.delayReasonsChart.update('active'); }
+        }
+
+        function createGradient(ctx, color1, color2) {
+            const g = ctx.createLinearGradient(0, 0, 0, 400);
+            g.addColorStop(0, color1);
+            g.addColorStop(1, color2);
+            return g;
         }
 
         // B. Gráfico: Tasa de automatización (85% Automático / 15% Humano)
@@ -1194,6 +1486,239 @@
                         ticks: { font: { family: 'Inter', size: 10 }, maxRotation: 45 }
                     }
                 }
+            }
+        });
+
+        // Conversaciones por día
+        const convCtx = document.getElementById('conversationsChart').getContext('2d');
+        const convLabels = ['1', '3', '5', '7', '9', '11', '13', '15', '17', '19', '21', '23', '25', '27', '29'];
+        window.conversationsChart = new Chart(convCtx, {
+            type: 'line',
+            data: {
+                labels: convLabels,
+                datasets: [{
+                    label: 'Conversaciones',
+                    data: d0.conversations,
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', cornerRadius: 8 } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter' } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+
+        // Distribución por hora del día (8 franjas)
+        const hourlyCtx = document.getElementById('hourlyChart').getContext('2d');
+        window.hourlyChart = new Chart(hourlyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['00h', '03h', '06h', '09h', '12h', '15h', '18h', '21h'],
+                datasets: [{
+                    label: 'Consultas',
+                    data: d0.hourly,
+                    backgroundColor: createGradient(hourlyCtx, '#764ba2', '#667eea'),
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', cornerRadius: 8 } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter' } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+
+        // Tipos de consultas (doughnut)
+        const topicsCtx = document.getElementById('topicsChart').getContext('2d');
+        window.topicsChart = new Chart(topicsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Colores y combinaciones', 'Rendimiento y cantidad', 'Precios', 'Aplicación y técnicas', 'Productos específicos'],
+                datasets: [{
+                    data: d0.topics,
+                    backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b'],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' }, usePointStyle: true } }, tooltip: { cornerRadius: 8 } }
+            }
+        });
+
+        // Canales de comunicación
+        const channelsCtx = document.getElementById('channelsChart').getContext('2d');
+        window.channelsChart = new Chart(channelsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['WhatsApp', 'Web Chat', 'Facebook', 'Instagram'],
+                datasets: [{
+                    data: d0.channels,
+                    backgroundColor: ['#25D366', '#667eea', '#1877f2', '#E4405F'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' }, usePointStyle: true } }, tooltip: { cornerRadius: 8 } }
+            }
+        });
+
+        // Calificaciones del servicio
+        const ratingsCtx = document.getElementById('ratingsChart').getContext('2d');
+        window.ratingsChart = new Chart(ratingsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['⭐⭐⭐⭐⭐', '⭐⭐⭐⭐', '⭐⭐⭐', '⭐⭐', '⭐'],
+                datasets: [{
+                    label: 'Calificaciones',
+                    data: d0.ratings,
+                    backgroundColor: createGradient(ratingsCtx, '#10b981', '#059669'),
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { cornerRadius: 8 } },
+                scales: {
+                    x: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter' } } },
+                    y: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 13 } } }
+                }
+            }
+        });
+
+        // Estado de pedidos (logística)
+        const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+        window.orderStatusChart = new Chart(orderStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Entregados', 'En tránsito', 'Preparando', 'Demorados', 'Cancelados'],
+                datasets: [{
+                    data: d0.orderStatus,
+                    backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#6b7280'],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' }, usePointStyle: true } }, tooltip: { cornerRadius: 8 } }
+            }
+        });
+
+        // Tiempos de entrega
+        const deliveryTimeCtx = document.getElementById('deliveryTimeChart').getContext('2d');
+        window.deliveryTimeChart = new Chart(deliveryTimeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['1 día', '2 días', '3 días', '4 días', '5+ días'],
+                datasets: [{
+                    label: 'Cantidad',
+                    data: d0.deliveryTime,
+                    backgroundColor: createGradient(deliveryTimeCtx, '#3b82f6', '#2563eb'),
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { cornerRadius: 8 } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter' } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+
+        // Pedidos y demoras por semana
+        const weeklyCtx = document.getElementById('weeklyOrdersChart').getContext('2d');
+        window.weeklyOrdersChart = new Chart(weeklyCtx, {
+            type: 'line',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                datasets: [
+                    { label: 'Pedidos totales', data: d0.weeklyOrders.total, borderColor: '#667eea', backgroundColor: 'rgba(102, 126, 234, 0.1)', tension: 0.4, fill: true, pointRadius: 6 },
+                    { label: 'Pedidos demorados', data: d0.weeklyOrders.delayed, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', tension: 0.4, fill: true, pointRadius: 6 }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', labels: { font: { family: 'Inter' } } }, tooltip: { cornerRadius: 8 } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter' } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+
+        // Pedidos por zona
+        const zoneCtx = document.getElementById('zoneChart').getContext('2d');
+        window.zoneChart = new Chart(zoneCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Centro', 'Zona Norte', 'Zona Sur', 'Zona Oeste', 'Zona Este'],
+                datasets: [{
+                    label: 'Pedidos',
+                    data: d0.zone,
+                    backgroundColor: ['rgba(102, 126, 234, 0.9)', 'rgba(118, 75, 162, 0.9)', 'rgba(240, 147, 251, 0.9)', 'rgba(79, 172, 254, 0.9)', 'rgba(67, 233, 123, 0.9)'],
+                    borderRadius: 8,
+                    borderSkipped: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { cornerRadius: 8 } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter' } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter' } } }
+                }
+            }
+        });
+
+        // Motivos de demoras
+        const delayReasonsCtx = document.getElementById('delayReasonsChart').getContext('2d');
+        window.delayReasonsChart = new Chart(delayReasonsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Stock insuficiente', 'Problemas de tráfico', 'Dirección incorrecta', 'Cliente ausente', 'Otros'],
+                datasets: [{
+                    data: d0.delayReasons,
+                    backgroundColor: ['#ef4444', '#f59e0b', '#f97316', '#fb923c', '#6b7280'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' }, usePointStyle: true } }, tooltip: { cornerRadius: 8 } }
             }
         });
     </script>
