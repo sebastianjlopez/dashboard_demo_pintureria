@@ -822,6 +822,109 @@
         let currentPeriod = 'month';
         let currentCompare = 'previous';
 
+        // Datos por período (week/month/quarter) y comparación (previous/year)
+        const periodLabels = { week: 'semana', month: 'mes', quarter: 'trimestre' };
+        const compareLabels = { previous: 'anterior', year: 'año anterior' };
+
+        const DATA = {
+            week: {
+                previous: {
+                    stats: ['97.2%', '1.6s', '892', '$34K'],
+                    metrics1: [{ v: '756', ch: '+18%', pos: true }, { v: '84%', ch: '+3%', pos: true }, { v: '2.1min', ch: '-12%', pos: true }, { v: '4.5/5', ch: '+5%', pos: true }],
+                    metrics2: [{ v: '128', ch: '+22%', pos: true }, { v: '2.9d', ch: '-8%', pos: true }, { v: '11', ch: '+8%', pos: false }, { v: '91.4%', ch: '+1%', pos: true }],
+                    orderStatus: [105, 14, 8, 11, 2],
+                    deliveryTime: [22, 42, 44, 14, 6],
+                    weeklyOrders: { total: [32, 38, 35, 33], delayed: [3, 2, 4, 2] },
+                    zone: [38, 26, 22, 24, 18],
+                    delayReasons: [4, 3, 2, 1, 1],
+                    conversations: [22, 28, 26, 30, 32, 28, 26, 30, 34, 32, 36, 32, 30, 34, 38],
+                    hourly: [4, 2, 5, 14, 26, 30, 52, 48],
+                    topics: [245, 182, 120, 108, 101],
+                    channels: [380, 218, 108, 50],
+                    ratings: [428, 228, 76, 24, 6]
+                },
+                year: {
+                    stats: ['96.8%', '1.9s', '812', '$31K'],
+                    metrics1: [{ v: '698', ch: '+24%', pos: true }, { v: '82%', ch: '+6%', pos: true }, { v: '2.4min', ch: '-8%', pos: true }, { v: '4.4/5', ch: '+9%', pos: true }],
+                    metrics2: [{ v: '118', ch: '+28%', pos: true }, { v: '3.1d', ch: '-5%', pos: true }, { v: '12', ch: '+5%', pos: false }, { v: '89.8%', ch: '+4%', pos: true }],
+                    orderStatus: [98, 16, 10, 13, 3],
+                    deliveryTime: [20, 38, 48, 16, 8],
+                    weeklyOrders: { total: [28, 34, 32, 30], delayed: [4, 3, 5, 3] },
+                    zone: [35, 24, 20, 22, 17],
+                    delayReasons: [5, 3, 2, 2, 1],
+                    conversations: [20, 24, 22, 26, 28, 24, 22, 26, 30, 28, 32, 28, 26, 30, 34],
+                    hourly: [3, 2, 4, 12, 22, 26, 44, 40],
+                    topics: [218, 165, 108, 98, 92],
+                    channels: [342, 198, 98, 44],
+                    ratings: [385, 208, 68, 22, 5]
+                }
+            },
+            month: {
+                previous: {
+                    stats: ['98.5%', '1.8s', '3,334', '$127K'],
+                    metrics1: [{ v: '2,847', ch: '+23%', pos: true }, { v: '87%', ch: '+5%', pos: true }, { v: '2.3min', ch: '-15%', pos: true }, { v: '4.6/5', ch: '+8%', pos: true }],
+                    metrics2: [{ v: '487', ch: '+18%', pos: true }, { v: '3.2d', ch: '-12%', pos: true }, { v: '42', ch: '+5%', pos: false }, { v: '91.4%', ch: '+2%', pos: true }],
+                    orderStatus: [398, 56, 31, 42, 7],
+                    deliveryTime: [87, 156, 168, 54, 22],
+                    weeklyOrders: { total: [118, 134, 121, 114], delayed: [12, 8, 14, 8] },
+                    zone: [145, 98, 87, 92, 65],
+                    delayReasons: [16, 11, 7, 5, 3],
+                    conversations: [67, 89, 78, 95, 102, 88, 76, 94, 108, 97, 115, 103, 98, 112, 106],
+                    hourly: [12, 8, 15, 45, 78, 92, 156, 142],
+                    topics: [912, 684, 456, 398, 397],
+                    channels: [1425, 854, 398, 170],
+                    ratings: [1598, 856, 284, 89, 20]
+                },
+                year: {
+                    stats: ['97.9%', '2.1s', '2,890', '$98K'],
+                    metrics1: [{ v: '2,412', ch: '+31%', pos: true }, { v: '84%', ch: '+8%', pos: true }, { v: '2.6min', ch: '-11%', pos: true }, { v: '4.4/5', ch: '+12%', pos: true }],
+                    metrics2: [{ v: '412', ch: '+24%', pos: true }, { v: '3.5d', ch: '-8%', pos: true }, { v: '48', ch: '+2%', pos: false }, { v: '89.2%', ch: '+5%', pos: true }],
+                    orderStatus: [352, 62, 38, 48, 10],
+                    deliveryTime: [78, 142, 178, 58, 28],
+                    weeklyOrders: { total: [98, 112, 108, 102], delayed: [14, 10, 16, 12] },
+                    zone: [128, 88, 78, 82, 58],
+                    delayReasons: [18, 12, 8, 6, 4],
+                    conversations: [58, 76, 68, 82, 88, 74, 66, 82, 94, 84, 98, 88, 84, 96, 102],
+                    hourly: [10, 6, 12, 38, 68, 82, 138, 124],
+                    topics: [798, 598, 398, 348, 342],
+                    channels: [1198, 724, 348, 148],
+                    ratings: [1356, 728, 242, 78, 18]
+                }
+            },
+            quarter: {
+                previous: {
+                    stats: ['98.8%', '1.7s', '9,892', '$382K'],
+                    metrics1: [{ v: '8,542', ch: '+19%', pos: true }, { v: '88%', ch: '+4%', pos: true }, { v: '2.2min', ch: '-18%', pos: true }, { v: '4.7/5', ch: '+6%', pos: true }],
+                    metrics2: [{ v: '1,456', ch: '+15%', pos: true }, { v: '3.0d', ch: '-14%', pos: true }, { v: '118', ch: '+4%', pos: false }, { v: '91.9%', ch: '+1%', pos: true }],
+                    orderStatus: [1185, 168, 92, 128, 22],
+                    deliveryTime: [262, 468, 502, 162, 68],
+                    weeklyOrders: { total: [352, 398, 368, 342], delayed: [36, 28, 42, 28] },
+                    zone: [432, 292, 258, 278, 192],
+                    delayReasons: [48, 32, 22, 16, 10],
+                    conversations: [198, 268, 234, 288, 302, 268, 234, 288, 318, 292, 342, 308, 292, 332, 356],
+                    hourly: [36, 24, 44, 132, 232, 274, 468, 424],
+                    topics: [2736, 2052, 1368, 1194, 1192],
+                    channels: [4275, 2562, 1194, 510],
+                    ratings: [4794, 2568, 852, 268, 60]
+                },
+                year: {
+                    stats: ['98.2%', '1.9s', '8,456', '$312K'],
+                    metrics1: [{ v: '7,236', ch: '+28%', pos: true }, { v: '85%', ch: '+7%', pos: true }, { v: '2.5min', ch: '-12%', pos: true }, { v: '4.5/5', ch: '+10%', pos: true }],
+                    metrics2: [{ v: '1,238', ch: '+22%', pos: true }, { v: '3.3d', ch: '-9%', pos: true }, { v: '142', ch: '+3%', pos: false }, { v: '90.2%', ch: '+4%', pos: true }],
+                    orderStatus: [1052, 186, 114, 142, 32],
+                    deliveryTime: [234, 426, 534, 174, 84],
+                    weeklyOrders: { total: [294, 336, 324, 306], delayed: [42, 30, 48, 36] },
+                    zone: [384, 264, 234, 248, 174],
+                    delayReasons: [54, 36, 24, 18, 12],
+                    conversations: [174, 228, 204, 246, 264, 228, 198, 246, 282, 252, 306, 264, 252, 288, 318],
+                    hourly: [30, 18, 36, 114, 204, 246, 414, 372],
+                    topics: [2394, 1794, 1194, 1044, 1026],
+                    channels: [3588, 2172, 1044, 444],
+                    ratings: [4068, 2184, 726, 234, 54]
+                }
+            }
+        };
+
         function changeFilter(period, button) {
             currentPeriod = period;
             document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -844,9 +947,80 @@
             updateCharts();
         }
 
+        function getCompareText() {
+            const p = periodLabels[currentPeriod];
+            const c = compareLabels[currentCompare];
+            return c === 'anterior' ? `vs. ${p} ${c}` : `vs. ${c}`;
+        }
+
         function updateCharts() {
-            console.log(`Período: ${currentPeriod}, Comparar: ${currentCompare}`);
-            // Aquí se actualizarían los datos según el filtro seleccionado
+            const d = DATA[currentPeriod][currentCompare];
+            const compareText = getCompareText();
+
+            // Stats bar (4 números)
+            document.querySelectorAll('.stats-bar .stat-number').forEach((el, i) => { el.textContent = d.stats[i]; });
+
+            // Métricas Chatbot (primer .metrics-grid)
+            const grids = document.querySelectorAll('.metrics-grid');
+            grids[0].querySelectorAll('.metric-value').forEach((el, i) => {
+                el.textContent = d.metrics1[i].v;
+            });
+            grids[0].querySelectorAll('.metric-change').forEach((el, i) => {
+                el.textContent = d.metrics1[i].ch + ' ' + compareText;
+                el.className = 'metric-change ' + (d.metrics1[i].pos ? 'positive' : 'negative');
+            });
+
+            // Métricas Logística (segundo .metrics-grid)
+            grids[1].querySelectorAll('.metric-value').forEach((el, i) => {
+                el.textContent = d.metrics2[i].v;
+            });
+            grids[1].querySelectorAll('.metric-change').forEach((el, i) => {
+                el.textContent = d.metrics2[i].ch + ' ' + compareText;
+                el.className = 'metric-change ' + (d.metrics2[i].pos ? 'positive' : 'negative');
+            });
+
+            // Actualizar gráficos (referencias se asignan después de crearlos)
+            if (window.orderStatusChart) {
+                window.orderStatusChart.data.datasets[0].data = d.orderStatus;
+                window.orderStatusChart.update('active');
+            }
+            if (window.deliveryTimeChart) {
+                window.deliveryTimeChart.data.datasets[0].data = d.deliveryTime;
+                window.deliveryTimeChart.update('active');
+            }
+            if (window.weeklyOrdersChart) {
+                window.weeklyOrdersChart.data.datasets[0].data = d.weeklyOrders.total;
+                window.weeklyOrdersChart.data.datasets[1].data = d.weeklyOrders.delayed;
+                window.weeklyOrdersChart.update('active');
+            }
+            if (window.zoneChart) {
+                window.zoneChart.data.datasets[0].data = d.zone;
+                window.zoneChart.update('active');
+            }
+            if (window.delayReasonsChart) {
+                window.delayReasonsChart.data.datasets[0].data = d.delayReasons;
+                window.delayReasonsChart.update('active');
+            }
+            if (window.conversationsChart) {
+                window.conversationsChart.data.datasets[0].data = d.conversations;
+                window.conversationsChart.update('active');
+            }
+            if (window.hourlyChart) {
+                window.hourlyChart.data.datasets[0].data = d.hourly;
+                window.hourlyChart.update('active');
+            }
+            if (window.topicsChart) {
+                window.topicsChart.data.datasets[0].data = d.topics;
+                window.topicsChart.update('active');
+            }
+            if (window.channelsChart) {
+                window.channelsChart.data.datasets[0].data = d.channels;
+                window.channelsChart.update('active');
+            }
+            if (window.ratingsChart) {
+                window.ratingsChart.data.datasets[0].data = d.ratings;
+                window.ratingsChart.update('active');
+            }
         }
 
         // Configuración de colores del gradiente
@@ -884,7 +1058,7 @@
             }]
         };
 
-        new Chart(orderStatusCtx, {
+        window.orderStatusChart = new Chart(orderStatusCtx, {
             type: 'doughnut',
             data: orderStatusData,
             options: {
@@ -933,7 +1107,7 @@
             }]
         };
 
-        new Chart(deliveryTimeCtx, {
+        window.deliveryTimeChart = new Chart(deliveryTimeCtx, {
             type: 'bar',
             data: deliveryTimeData,
             options: {
@@ -1007,7 +1181,7 @@
             }]
         };
 
-        new Chart(weeklyOrdersCtx, {
+        window.weeklyOrdersChart = new Chart(weeklyOrdersCtx, {
             type: 'line',
             data: weeklyOrdersData,
             options: {
@@ -1077,7 +1251,7 @@
             }]
         };
 
-        new Chart(zoneCtx, {
+        window.zoneChart = new Chart(zoneCtx, {
             type: 'bar',
             data: zoneData,
             options: {
@@ -1138,7 +1312,7 @@
             }]
         };
 
-        new Chart(delayReasonsCtx, {
+        window.delayReasonsChart = new Chart(delayReasonsCtx, {
             type: 'pie',
             data: delayReasonsData,
             options: {
@@ -1186,7 +1360,7 @@
             }]
         };
 
-        new Chart(conversationsCtx, {
+        window.conversationsChart = new Chart(conversationsCtx, {
             type: 'line',
             data: conversationsData,
             options: {
@@ -1242,7 +1416,7 @@
             }]
         };
 
-        new Chart(hourlyCtx, {
+        window.hourlyChart = new Chart(hourlyCtx, {
             type: 'bar',
             data: hourlyData,
             options: {
@@ -1303,7 +1477,7 @@
             }]
         };
 
-        new Chart(topicsCtx, {
+        window.topicsChart = new Chart(topicsCtx, {
             type: 'doughnut',
             data: topicsData,
             options: {
@@ -1348,7 +1522,7 @@
             }]
         };
 
-        new Chart(channelsCtx, {
+        window.channelsChart = new Chart(channelsCtx, {
             type: 'pie',
             data: channelsData,
             options: {
@@ -1389,7 +1563,7 @@
             }]
         };
 
-        new Chart(ratingsCtx, {
+        window.ratingsChart = new Chart(ratingsCtx, {
             type: 'bar',
             data: ratingsData,
             options: {
