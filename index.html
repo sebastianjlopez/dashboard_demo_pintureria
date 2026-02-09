@@ -555,6 +555,64 @@
             color: #1f2937;
         }
 
+        /* KPIs por canal */
+        .channel-kpis {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .channel-block {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .channel-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .channel-stats {
+            margin-bottom: 0;
+        }
+
+        .channel-stats .stat-item {
+            padding: 12px 16px;
+        }
+
+        .sentiment-widget.compact { padding: 16px 20px; margin-bottom: 12px; }
+        .sentiment-widget.compact .sentiment-bar-wrap { height: 60px; }
+
+        .messaging-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .messaging-block {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .messaging-block h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
         /* Embudo de conversión - proporcional a los datos (100% → 80% → 40% → 5%) */
         .funnel-section {
             background: white;
@@ -599,6 +657,10 @@
         .funnel-stage:nth-child(2) { border-left: 6px solid #764ba2; width: 80%; }
         .funnel-stage:nth-child(3) { border-left: 6px solid #8b5cf6; width: 40%; }
         .funnel-stage:nth-child(4) { border-left: 6px solid #10b981; width: 5%; min-width: 180px; }
+
+        .funnel-ads .funnel-stage:nth-child(1) { width: 100%; border-left-color: #667eea; }
+        .funnel-ads .funnel-stage:nth-child(2) { width: 35%; border-left-color: #764ba2; }
+        .funnel-ads .funnel-stage:nth-child(3) { width: 8%; min-width: 180px; border-left-color: #10b981; }
 
         .funnel-stage:hover {
             transform: translateX(4px);
@@ -739,6 +801,15 @@
                         <button class="filter-btn" onclick="changeCompare('year', this)">Año anterior</button>
                     </div>
                 </div>
+                <div class="filter-group" id="monthWeekFilter" style="display: none;">
+                    <label>📅 Semana del mes:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn" onclick="changeMonthWeek(1, this)">Semana 1</button>
+                        <button class="filter-btn active" onclick="changeMonthWeek(2, this)">Semana 2</button>
+                        <button class="filter-btn" onclick="changeMonthWeek(3, this)">Semana 3</button>
+                        <button class="filter-btn" onclick="changeMonthWeek(4, this)">Semana 4</button>
+                    </div>
+                </div>
                 <div class="live-indicator">
                     <div class="live-dot"></div>
                     <span>Datos en vivo</span>
@@ -783,7 +854,60 @@
             </div>
         </div>
 
-        <!-- Factor Wow: Análisis de Sentimiento -->
+        <!-- Moderación y Mensajería: Mensajería privada vs Comentarios públicos -->
+        <h2 class="section-title">💬 Moderación y Mensajería</h2>
+        <div class="messaging-grid">
+            <div class="messaging-block">
+                <h3>🔒 Mensajería privada (DM / Messenger)</h3>
+                <div class="sentiment-widget compact">
+                    <div class="sentiment-bars">
+                        <div class="sentiment-item">
+                            <div class="sentiment-label">🟢 Positivo</div>
+                            <div class="sentiment-bar-wrap"><div class="sentiment-bar positive" id="dmPos" style="height: 72%;"></div></div>
+                            <div class="sentiment-pct" id="dmPosPct">72%</div>
+                        </div>
+                        <div class="sentiment-item">
+                            <div class="sentiment-label">🟡 Neutro</div>
+                            <div class="sentiment-bar-wrap"><div class="sentiment-bar neutral" id="dmNeu" style="height: 20%;"></div></div>
+                            <div class="sentiment-pct" id="dmNeuPct">20%</div>
+                        </div>
+                        <div class="sentiment-item">
+                            <div class="sentiment-label">🔴 Enojado</div>
+                            <div class="sentiment-bar-wrap"><div class="sentiment-bar negative" id="dmNeg" style="height: 8%;"></div></div>
+                            <div class="sentiment-pct" id="dmNegPct">8%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container" style="height: 220px;"><canvas id="dmReasonsChart"></canvas></div>
+                <p class="chart-desc">Motivos de consulta (DM)</p>
+            </div>
+            <div class="messaging-block">
+                <h3>🌐 Comentarios públicos</h3>
+                <div class="sentiment-widget compact">
+                    <div class="sentiment-bars">
+                        <div class="sentiment-item">
+                            <div class="sentiment-label">🟢 Positivo</div>
+                            <div class="sentiment-bar-wrap"><div class="sentiment-bar positive" id="pubPos" style="height: 65%;"></div></div>
+                            <div class="sentiment-pct" id="pubPosPct">65%</div>
+                        </div>
+                        <div class="sentiment-item">
+                            <div class="sentiment-label">🟡 Neutro</div>
+                            <div class="sentiment-bar-wrap"><div class="sentiment-bar neutral" id="pubNeu" style="height: 25%;"></div></div>
+                            <div class="sentiment-pct" id="pubNeuPct">25%</div>
+                        </div>
+                        <div class="sentiment-item">
+                            <div class="sentiment-label">🔴 Enojado</div>
+                            <div class="sentiment-bar-wrap"><div class="sentiment-bar negative" id="pubNeg" style="height: 10%;"></div></div>
+                            <div class="sentiment-pct" id="pubNegPct">10%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container" style="height: 220px;"><canvas id="pubReasonsChart"></canvas></div>
+                <p class="chart-desc">Motivos en comentarios</p>
+            </div>
+        </div>
+
+        <!-- Sentimiento general (resumen) -->
         <div class="sentiment-widget">
             <h3>😊 Humor de los usuarios (Análisis de sentimiento)</h3>
             <div class="sentiment-bars">
@@ -808,6 +932,27 @@
                     </div>
                     <div class="sentiment-pct" id="sentimentNegPct">10%</div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Email (Doppler) y Web -->
+        <h2 class="section-title">📧 Email (Doppler) y Web</h2>
+        <div class="stats-bar" id="emailWebBar">
+            <div class="stat-item">
+                <div class="stat-number" id="emailOpenRate">34.2%</div>
+                <div class="stat-label">Open Rate (Doppler)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="emailClicks">2.840</div>
+                <div class="stat-label">Clics en emails</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="webVisits">18.920</div>
+                <div class="stat-label">Visitas al sitio web</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="webBounce">42%</div>
+                <div class="stat-label">Tasa de rebote</div>
             </div>
         </div>
 
@@ -849,9 +994,67 @@
             </div>
         </div>
 
-        <!-- D. Embudo de Conversión -->
+        <!-- KPIs por canal (IG, FB, YouTube) -->
+        <h2 class="section-title">📱 KPIs por canal</h2>
+        <div class="channel-kpis">
+            <div class="channel-block">
+                <h3 class="channel-name">📸 Instagram</h3>
+                <div class="stats-bar channel-stats">
+                    <div class="stat-item"><div class="stat-number" id="ig1">12.4K</div><div class="stat-label">Seguidores</div></div>
+                    <div class="stat-item"><div class="stat-number" id="ig2">3.2K</div><div class="stat-label">Reacciones</div></div>
+                    <div class="stat-item"><div class="stat-number" id="ig3">890</div><div class="stat-label">Guardados</div></div>
+                    <div class="stat-item"><div class="stat-number" id="ig4">456</div><div class="stat-label">Comentarios</div></div>
+                    <div class="stat-item"><div class="stat-number" id="ig5">28.1K</div><div class="stat-label">Alcance</div></div>
+                    <div class="stat-item"><div class="stat-number" id="ig6">234</div><div class="stat-label">Compartidos</div></div>
+                </div>
+            </div>
+            <div class="channel-block">
+                <h3 class="channel-name">👤 Facebook</h3>
+                <div class="stats-bar channel-stats">
+                    <div class="stat-item"><div class="stat-number" id="fb1">8.9K</div><div class="stat-label">Seguidores</div></div>
+                    <div class="stat-item"><div class="stat-number" id="fb2">2.1K</div><div class="stat-label">Reacciones</div></div>
+                    <div class="stat-item"><div class="stat-number" id="fb3">420</div><div class="stat-label">Guardados</div></div>
+                    <div class="stat-item"><div class="stat-number" id="fb4">312</div><div class="stat-label">Comentarios</div></div>
+                    <div class="stat-item"><div class="stat-number" id="fb5">18.5K</div><div class="stat-label">Alcance</div></div>
+                    <div class="stat-item"><div class="stat-number" id="fb6">178</div><div class="stat-label">Compartidos</div></div>
+                </div>
+            </div>
+            <div class="channel-block">
+                <h3 class="channel-name">▶️ YouTube</h3>
+                <div class="stats-bar channel-stats">
+                    <div class="stat-item"><div class="stat-number" id="yt1">5.2K</div><div class="stat-label">Suscriptores</div></div>
+                    <div class="stat-item"><div class="stat-number" id="yt2">12.8K</div><div class="stat-label">Reproducciones</div></div>
+                    <div class="stat-item"><div class="stat-number" id="yt3">892</div><div class="stat-label">Likes</div></div>
+                    <div class="stat-item"><div class="stat-number" id="yt4">4.2min</div><div class="stat-label">Tiempo promedio</div></div>
+                    <div class="stat-item"><div class="stat-number" id="yt5">156</div><div class="stat-label">Comentarios</div></div>
+                    <div class="stat-item"><div class="stat-number" id="yt6">89</div><div class="stat-label">Compartidos</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Publicidad (Meta / Google Ads) - Embudo -->
+        <h2 class="section-title">📢 Publicidad (Meta / Google Ads)</h2>
+        <div class="funnel-section funnel-ads">
+            <h3>📉 Embudo de campañas: Clics → Visitas al sitio → Conversión</h3>
+            <div class="funnel-visual">
+                <div class="funnel-stage">
+                    <span class="funnel-stage-label">Clics en anuncios</span>
+                    <span class="funnel-stage-value" id="adsClicks">24.500</span>
+                </div>
+                <div class="funnel-stage">
+                    <span class="funnel-stage-label">Visitas al sitio</span>
+                    <span class="funnel-stage-value" id="adsVisits">8.200</span>
+                </div>
+                <div class="funnel-stage">
+                    <span class="funnel-stage-label">Conversiones</span>
+                    <span class="funnel-stage-value" id="adsConversions">412</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- D. Embudo de Conversión (Chatbot) -->
         <div class="funnel-section">
-            <h3>📉 Embudo de conversión</h3>
+            <h3>📉 Embudo de conversión (Chatbot)</h3>
             <div class="funnel-visual">
                 <div class="funnel-stage">
                     <span class="funnel-stage-label">Sesiones iniciadas</span>
@@ -1040,6 +1243,7 @@
         // Funciones para filtros
         let currentPeriod = 'month';
         let currentCompare = 'previous';
+        let currentMonthWeek = 2; // Semana 1 a 4 dentro del mes
 
         // Datos por período y comparación (KPIs negocio, sentimiento, embudo, gráficos)
         const DATA = {
@@ -1113,7 +1317,11 @@
                     deliveryTime: [87, 156, 168, 54, 22],
                     weeklyOrders: { total: [118, 134, 121, 114], delayed: [12, 8, 14, 8] },
                     zone: [145, 98, 87, 92, 65],
-                    delayReasons: [16, 11, 7, 5, 3]
+                    delayReasons: [16, 11, 7, 5, 3],
+                    week1: { kpis: ['$3.200.000', '72', '28h'], operStats: ['98.2%', '1.7s', '782', '$28.000'], sentiment: [68, 22, 10], funnel: ['248', '198', '98', '12'], conversations: [18, 22, 20, 24, 26], hourly: [3, 2, 4, 12, 20, 24, 38, 35], topics: [228, 171, 114, 100, 99], channels: [356, 214, 100, 42], ratings: [400, 214, 71, 22, 5], orderStatus: [100, 14, 8, 10, 2], deliveryTime: [22, 39, 42, 14, 5], weeklyOrders: { total: [28, 32, 30, 28], delayed: [3, 2, 3, 2] }, zone: [36, 24, 22, 23, 16], delayReasons: [4, 3, 2, 1, 1], metrics1: [{ v: '712', ch: '+22%', pos: true }, { v: '86%', ch: '+4%', pos: true }, { v: '2.4min', ch: '-14%', pos: true }, { v: '4.5/5', ch: '+7%', pos: true }], metrics2: [{ v: '122', ch: '+20%', pos: true }, { v: '3.3d', ch: '-10%', pos: true }, { v: '10', ch: '+6%', pos: false }, { v: '91.2%', ch: '+1%', pos: true }], automation: [84, 16], responseBefore: 25, responseNow: 0.1, reasons: [38, 31, 21, 10] },
+                    week2: { kpis: ['$4.100.000', '92', '32h'], operStats: ['98.6%', '1.8s', '868', '$32.000'], sentiment: [71, 20, 9], funnel: ['265', '212', '108', '14'], conversations: [22, 28, 25, 30, 32], hourly: [12, 8, 15, 45, 78, 92, 156, 142], topics: [268, 201, 134, 117, 116], channels: [412, 248, 116, 52], ratings: [468, 250, 83, 26, 6], orderStatus: [118, 16, 10, 12, 2], deliveryTime: [26, 44, 48, 16, 6], weeklyOrders: { total: [32, 36, 34, 32], delayed: [4, 3, 4, 3] }, zone: [42, 28, 26, 28, 20], delayReasons: [5, 3, 2, 2, 1], metrics1: [{ v: '768', ch: '+24%', pos: true }, { v: '87%', ch: '+5%', pos: true }, { v: '2.3min', ch: '-15%', pos: true }, { v: '4.6/5', ch: '+8%', pos: true }], metrics2: [{ v: '132', ch: '+21%', pos: true }, { v: '3.2d', ch: '-11%', pos: true }, { v: '12', ch: '+5%', pos: false }, { v: '91.4%', ch: '+2%', pos: true }], automation: [85, 15], responseBefore: 25, responseNow: 0.1, reasons: [40, 30, 20, 10] },
+                    week3: { kpis: ['$4.000.000', '88', '30h'], operStats: ['98.5%', '1.8s', '842', '$31.000'], sentiment: [70, 21, 9], funnel: ['258', '206', '102', '13'], conversations: [21, 26, 24, 28, 30], hourly: [11, 7, 14, 42, 74, 88, 148, 135], topics: [260, 195, 130, 114, 112], channels: [398, 240, 112, 48], ratings: [452, 242, 80, 25, 6], orderStatus: [114, 15, 9, 11, 2], deliveryTime: [25, 42, 46, 15, 6], weeklyOrders: { total: [30, 34, 32, 30], delayed: [3, 3, 4, 3] }, zone: [40, 27, 25, 26, 19], delayReasons: [5, 3, 2, 1, 1], metrics1: [{ v: '742', ch: '+23%', pos: true }, { v: '86%', ch: '+5%', pos: true }, { v: '2.3min', ch: '-14%', pos: true }, { v: '4.5/5', ch: '+7%', pos: true }], metrics2: [{ v: '128', ch: '+19%', pos: true }, { v: '3.2d', ch: '-12%', pos: true }, { v: '11', ch: '+5%', pos: false }, { v: '91.3%', ch: '+2%', pos: true }], automation: [85, 15], responseBefore: 25, responseNow: 0.1, reasons: [40, 30, 20, 10] },
+                    week4: { kpis: ['$4.100.000', '90', '30h'], operStats: ['98.6%', '1.8s', '842', '$36.000'], sentiment: [72, 19, 9], funnel: ['269', '215', '102', '11'], conversations: [26, 30, 29, 33, 34], hourly: [12, 8, 16, 46, 80, 94, 160, 146], topics: [276, 207, 138, 121, 118], channels: [419, 252, 118, 54], ratings: [478, 256, 85, 28, 5], orderStatus: [126, 17, 11, 13, 2], deliveryTime: [28, 46, 52, 17, 6], weeklyOrders: { total: [34, 38, 36, 34], delayed: [4, 3, 4, 3] }, zone: [44, 30, 27, 29, 21], delayReasons: [5, 4, 2, 2, 1], metrics1: [{ v: '725', ch: '+23%', pos: true }, { v: '88%', ch: '+6%', pos: true }, { v: '2.2min', ch: '-16%', pos: true }, { v: '4.7/5', ch: '+9%', pos: true }], metrics2: [{ v: '105', ch: '+17%', pos: true }, { v: '3.1d', ch: '-13%', pos: true }, { v: '9', ch: '+4%', pos: false }, { v: '91.8%', ch: '+2%', pos: true }], automation: [86, 14], responseBefore: 25, responseNow: 0.1, reasons: [41, 29, 21, 9] }
                 },
                 year: {
                     kpis: ['$12.100.000', '278', '98h'],
@@ -1197,6 +1405,16 @@
                 }
             });
             button.classList.add('active');
+            var weekFilter = document.getElementById('monthWeekFilter');
+            if (weekFilter) weekFilter.style.display = (period === 'month') ? 'flex' : 'none';
+            updateCharts();
+        }
+
+        function changeMonthWeek(weekNum, button) {
+            currentMonthWeek = weekNum;
+            var parent = button.closest('.filter-buttons');
+            if (parent) parent.querySelectorAll('.filter-btn').forEach(btn => { btn.classList.remove('active'); });
+            button.classList.add('active');
             updateCharts();
         }
 
@@ -1212,7 +1430,10 @@
         }
 
         function updateCharts() {
-            const d = DATA[currentPeriod][currentCompare];
+            let d = DATA[currentPeriod][currentCompare];
+            if (currentPeriod === 'month' && d['week' + currentMonthWeek]) {
+                d = d['week' + currentMonthWeek];
+            }
 
             // A. KPIs de Negocio
             document.querySelectorAll('.kpi-hero .stat-number').forEach((el, i) => { el.textContent = d.kpis[i]; });
@@ -1673,6 +1894,52 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter' }, usePointStyle: true } }, tooltip: { cornerRadius: 8 } }
+            }
+        });
+
+        // Mensajería privada - motivos (pie)
+        const dmReasonsCtx = document.getElementById('dmReasonsChart').getContext('2d');
+        window.dmReasonsChart = new Chart(dmReasonsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Precios', 'Soporte técnico', 'Horarios', 'Reclamos'],
+                datasets: [{
+                    data: [38, 32, 22, 8],
+                    backgroundColor: ['#667eea', '#10b981', '#f59e0b', '#ef4444'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { font: { size: 11, family: 'Inter' }, usePointStyle: true } }, tooltip: { cornerRadius: 8 } }
+            }
+        });
+
+        // Mostrar filtro "Semana del mes" si el período es Mes (al cargar)
+        (function() {
+            var w = document.getElementById('monthWeekFilter');
+            if (w && currentPeriod === 'month') w.style.display = 'flex';
+        })();
+
+        // Comentarios públicos - motivos (pie)
+        const pubReasonsCtx = document.getElementById('pubReasonsChart').getContext('2d');
+        window.pubReasonsChart = new Chart(pubReasonsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Consultas producto', 'Quejas', 'Elogios', 'Otros'],
+                datasets: [{
+                    data: [45, 25, 20, 10],
+                    backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#6b7280'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { font: { size: 11, family: 'Inter' }, usePointStyle: true } }, tooltip: { cornerRadius: 8 } }
             }
         });
     </script>
